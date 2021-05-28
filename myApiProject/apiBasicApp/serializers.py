@@ -2,6 +2,8 @@ from rest_framework import fields, serializers
 from .models import Article
 
 
+class S
+
 # for Serializer class
 # class ArticleSerializer(serializers.Serializer):
 #     title =  serializers.CharField(max_length=50)
