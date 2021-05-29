@@ -2,12 +2,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, response
 from rest_framework.views import APIView
-from django.forms.models import model_to_dict
-
 from rest_framework import serializers
 from rest_framework.parsers import JSONParser
 from .models import Article, TestModel
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, SimpleSerializer
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -15,7 +13,9 @@ from django.views.decorators.csrf import csrf_exempt
 class simple(APIView):
 
     def post(self, request):
-        
+        serializer = SimpleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # above is checking for validations in out serializers
         # creating our data to be inserted from postman to go to the database using objects.create
         # request.data is used to fetch the data being inserted while calling this post method
         newTestContent = TestModel.objects.create(
@@ -26,20 +26,18 @@ class simple(APIView):
             amount = request.data["amount"]
         )
         
-            
-        print(newTestContent)
-
         return JsonResponse(
             {
-                "data": model_to_dict(newTestContent)
+                "data": SimpleSerializer(newTestContent).data
             })
 
     def get(self, request):
-        content = TestModel.objects.all().values()
+        content = TestModel.objects.all()
 
         print(content)
 
-        return JsonResponse({"Get Response": list(content)})
+        return JsonResponse({"Get Response": SimpleSerializer(content, many=True).data})
+        # many=True is telling your serializer that the data you are dealing with is a list because of the .all() ORM
 
 
 

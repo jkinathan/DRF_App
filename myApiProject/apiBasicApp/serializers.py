@@ -6,8 +6,15 @@ from .models import Article
 #     def __str__(self, name):
 #         self.name = name
 
-class SimpleObjectSerializer(serializers.Serializer):
+class SimpleSerializer(serializers.Serializer):
     name = serializers.CharField()
+    description = serializers.CharField()
+    phone = serializers.IntegerField()
+    is_alive = serializers.BooleanField()
+    amount = serializers.CharField()
+    slug = serializers.CharField(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
+    updated_at = serializers.DateTimeField(read_only=True)
 
 
 # def run_data():
