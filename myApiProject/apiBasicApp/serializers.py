@@ -2,8 +2,19 @@ from rest_framework import fields, serializers
 from .models import Article
 
 
-class S
+# class SimpleObject():
+#     def __str__(self, name):
+#         self.name = name
 
+class SimpleObjectSerializer(serializers.Serializer):
+    name = serializers.CharField()
+
+
+# def run_data():
+#     simpleVar = SimpleObject("Jordan")
+#     simpleVarSerializer = SimpleObjectSerializer(simpleVar)
+
+#     print(simpleVarSerializer.data)
 # for Serializer class
 # class ArticleSerializer(serializers.Serializer):
 #     title =  serializers.CharField(max_length=50)
