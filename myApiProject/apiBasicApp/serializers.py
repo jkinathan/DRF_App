@@ -1,3 +1,4 @@
+from django.db.models.base import Model
 from rest_framework import fields, serializers
 from .models import Article, TestModel
 
@@ -5,8 +6,15 @@ from .models import Article, TestModel
 # class SimpleObject():
 #     def __str__(self, name):
 #         self.name = name
+# new Serializer
 
-class SimpleSerializer(serializers.Serializer):
+class SimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestModel
+        fields = "__all__" # or ['name','description','phone',]
+
+# old serializer
+class SimpleSerializerold(serializers.Serializer):
     name = serializers.CharField()
     description = serializers.CharField()
     phone = serializers.IntegerField()

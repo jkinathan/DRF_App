@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, response
 from rest_framework.views import APIView
-from rest_framework import serializers
+from rest_framework import serializers, generics
 from rest_framework.parsers import JSONParser
 from .models import Article, TestModel
 from .serializers import ArticleSerializer, SimpleSerializer
@@ -10,6 +10,17 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
+class SimpleGenerics(generics.ListCreateAPIView):
+    queryset = TestModel.objects.all()
+    serializer_class = SimpleSerializer
+
+class SimpleGenericsUpdate(generics.UpdateAPIView):
+    queryset = TestModel.objects.all()
+    serializer_class = SimpleSerializer
+    lookup_field = "id"
+
+
+# old class based APIVIEW
 class simple(APIView):
 
     def post(self, request):
@@ -64,7 +75,7 @@ class simple(APIView):
             })
 
 
-
+# Old function based APIView
 @csrf_exempt
 def ArticleList(request):
     if request.method == "GET":
