@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, response
 from rest_framework.views import APIView
-from rest_framework import serializers, generics
+from rest_framework import serializers, generics, viewsets
 from rest_framework.parsers import JSONParser
 from .models import Article, TestModel
 from .serializers import ArticleSerializer, SimpleSerializer
@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
-class SimpleGenerics(generics.ListCreateAPIView):
+class SimpleViewSet(viewsets.ModelViewSet):
     queryset = TestModel.objects.all()
     serializer_class = SimpleSerializer
 
