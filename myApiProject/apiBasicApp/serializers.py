@@ -1,5 +1,5 @@
 from rest_framework import fields, serializers
-from .models import Article
+from .models import Article, TestModel
 
 
 # class SimpleObject():
@@ -16,6 +16,9 @@ class SimpleSerializer(serializers.Serializer):
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
+    # creating data using our serializer hehehe we override its create method and connect our model
+    def create(self, validated_data):
+        return TestModel.objects.create(**validated_data)
 
 # def run_data():
 #     simpleVar = SimpleObject("Jordan")

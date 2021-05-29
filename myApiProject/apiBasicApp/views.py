@@ -18,17 +18,21 @@ class simple(APIView):
         # above is checking for validations in out serializers
         # creating our data to be inserted from postman to go to the database using objects.create
         # request.data is used to fetch the data being inserted while calling this post method
-        newTestContent = TestModel.objects.create(
-            name = request.data["name"],
-            description = request.data["description"],
-            phone = request.data["phone"],
-            is_alive = request.data["is_alive"],
-            amount = request.data["amount"]
-        )
+        
+        # newTestContent = TestModel.objects.create(
+        #     name = request.data["name"],
+        #     description = request.data["description"],
+        #     phone = request.data["phone"],
+        #     is_alive = request.data["is_alive"],
+        #     amount = request.data["amount"]
+        # )
+
+        serializer.save()
+        # serializer.save() calls the validations and then runs the create function overriden and save it in db
         
         return JsonResponse(
             {
-                "data": SimpleSerializer(newTestContent).data
+                "data": serializer.data
             })
 
     def get(self, request):
