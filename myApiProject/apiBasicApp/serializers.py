@@ -20,6 +20,10 @@ class SimpleSerializer(serializers.Serializer):
     def create(self, validated_data):
         return TestModel.objects.create(**validated_data)
 
+    def update(self,instance, validated_data):
+        TestModel.objects.filter(id=instance.id).update(**validated_data)
+        return TestModel.objects.get(id=instance.id)
+
 # def run_data():
 #     simpleVar = SimpleObject("Jordan")
 #     simpleVarSerializer = SimpleObjectSerializer(simpleVar)

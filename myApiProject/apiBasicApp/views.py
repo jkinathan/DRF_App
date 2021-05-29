@@ -43,7 +43,25 @@ class simple(APIView):
         return JsonResponse({"Get Response": SimpleSerializer(content, many=True).data})
         # many=True is telling your serializer that the data you are dealing with is a list because of the .all() ORM
 
+    def put(self, request, *args, **kwargs):
+        model_id = kwargs.get("id", None) 
+        # validations to check if user passed in an id then None as default if id doesnt exist
+        if not model_id:
+            return JsonResponse({"error": "Method PUT not allowed"})
+        try:
+            instance = TestModel.objects.get(id=model_id)
+        except:
+            return JsonResponse({"error": "Object doesn't Exist Bro!! "})
 
+        # validating our data
+        serializer = SimpleSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
+        return JsonResponse(
+            {
+                "data": serializer.data
+            })
 
 
 
