@@ -17,7 +17,7 @@ class TestModel(models.Model):
         "null": "This field can't be null"
     })
     description = models.TextField()
-    phone = models.PositiveIntegerField()
+    phone = models.TextField()
     is_alive = models.BooleanField()
     amount = models.CharField(max_length=50)
     slug = models.CharField(max_length=250, editable=False, default="null")
