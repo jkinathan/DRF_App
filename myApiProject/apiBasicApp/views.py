@@ -18,6 +18,7 @@ seeder.add_entity(Article, 2)
 def execute():
     seeder.execute()
     print("Seeding completed")
+    # inside your shell run python manage.py shell , then from apiBasicApp.views import execute, then run execute()
 
 
 # Create your views here.

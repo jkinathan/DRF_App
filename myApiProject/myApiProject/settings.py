@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'apiBasicApp',
     'rest_framework',
     'django_seed',
+    'user',
 ]
+
+AUTH_USER_MODEL = "user.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
