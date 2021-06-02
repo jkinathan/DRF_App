@@ -8,6 +8,17 @@ from .models import Article, TestModel
 from .serializers import ArticleSerializer, SimpleSerializer
 from django.views.decorators.csrf import csrf_exempt
 
+# using seeders
+from django_seed import Seed
+
+seeder = Seed.seeder()
+
+seeder.add_entity(Article, 2)
+
+def execute():
+    seeder.execute()
+    print("Seeding completed")
+
 
 # Create your views here.
 class SimpleViewSet(viewsets.ModelViewSet):
